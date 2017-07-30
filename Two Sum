@@ -1,14 +1,20 @@
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        d={}
-        for i,v in enumerate(nums):
-            if target-v in d:
-                return [d[target-v],i]
-            d[v]=i
-
-
+class Solution {
+    func twoSum(_ nums: [Int], _ target: Int) -> [Int] {
+        var dict = [Int: Int]()
+        var result = [Int]()
+        for index in 0..<nums.count{
+        //get the remaining val and check if it exists in the dictionary already
+            let remainingVal = target - nums[index]
+            //if the remaining value exists in the dictionary, return the two indexs
+            if let indexVal = dict[remainingVal]{
+                result.append(indexVal)
+                result.append(index)
+                return result
+            }
+            else{
+                dict[nums[index]] = index 
+            }
+        }
+        return result
+    }
+}
