@@ -1,0 +1,33 @@
+class Solution {
+    func lengthOfLongestSubstring(_ s: String) -> Int {
+        var start:Int = 0
+        var maxLength:Int = 0
+        var chars = s.randomAccessCharactersArray()
+        var dict = [Character:Int]()
+        for i in 0..<chars.count{
+        //if key exists in dictionary and the start position is less then the current index position, 
+        //set current index position to be the next starting position
+            if let val = dict[chars[i]] , start <= val{
+                start = dict[chars[i]]! + 1
+            }else {
+            //otherwise use the current index position to minus the start position to get the temp max length
+            //compare to maxLength 
+                if (maxLength < (i - start + 1)){
+                    maxLength = (i - start + 1)
+                }
+            }
+            //update dictionary with key
+            dict[chars[i]] = i
+        }
+        
+        return maxLength
+        
+    }
+
+}
+
+extension String{   
+    func randomAccessCharactersArray() -> [Character] {
+        return Array(self.characters)
+    }
+}
