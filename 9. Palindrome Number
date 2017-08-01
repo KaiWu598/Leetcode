@@ -1,0 +1,17 @@
+class Solution {
+    func isPalindrome(_ x: Int) -> Bool {
+        var num = x
+        var res = 0
+        //if the num is not zero and last digit is 0, it is not a palindrome
+        if (num<0) || (num != 0 && num%10 == 0) {return false}
+        
+        //reserving the number until half of the digits are reversed
+        while num > res {
+            res = res * 10 + num % 10
+            num = num / 10
+        }
+        
+        //compare the two parts for even or odd number of digits
+        return (num == res || num == res/10)
+    }
+}
