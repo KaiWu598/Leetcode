@@ -1,0 +1,42 @@
+class Solution {
+    func longestCommonPrefix(_ strs: [String]) -> String {
+        guard strs.count > 0 else {
+            return ""
+        }
+        
+        let arr = strs
+        
+        let firstLen = arr[0].characters.count
+        let arrLen = arr.count
+        
+        //loop through the characters in the first string
+        for i in 0 ..< firstLen {
+            let chars = [Character](arr[0].characters)
+            let char = chars[i]
+            //loop through each character in all other strings
+            for j in 1..<arrLen{
+                let c =  [Character](arr[j].characters)
+                //if the other string is shorter(PREFIX reached) or characters do not match
+                if i == c.count || char != c[i]{
+                    return String(Array(chars[0 ..< i]))
+                }
+            }
+        }
+        
+        return arr[0]
+    }
+}
+
+private extension String {
+    subscript(intIndex: Int) -> Character {
+        let index = self.characters.index(self.startIndex, offsetBy: intIndex)
+        return self[index]
+    }
+    subscript(range: Range<Int>) -> String {
+        let lowerBoundIndex = self.characters.index(self.startIndex, offsetBy: range.lowerBound)
+        let upperBoundIndex = self.characters.index(self.startIndex, offsetBy: range.upperBound)
+        let rangeInStringIndex = lowerBoundIndex ..< upperBoundIndex
+        let stringSlice = self[rangeInStringIndex]
+        return String(stringSlice)
+    }
+}
