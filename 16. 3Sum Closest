@@ -1,0 +1,37 @@
+class Solution {
+    func threeSumClosest(_ nums: [Int], _ target: Int) -> Int {
+        var arr = nums.sorted(by:{$0 < $1})
+        var res = Int()
+        var tmpSum = Int()
+        if arr.count <= 3 {
+            return nums.reduce(0,+)
+        }
+        tmpSum = arr[0] + arr[1] + arr[2]
+
+        
+        for i in 0 ..< arr.count - 2{
+            var l = i + 1
+            var r = arr.count - 1
+
+            while l < r {
+                let val = arr[i] + arr[l] + arr[r]
+                if val == target{
+                    return val
+                }
+                
+                //compare the two distances to the target
+                if abs(target - val) < abs(target - tmpSum){
+                    tmpSum = val
+                }
+                if val < target {
+                    l += 1
+                }
+                else if val > target {
+                    r -= 1
+                }
+            }
+        }
+        
+        return tmpSum
+    }
+}
