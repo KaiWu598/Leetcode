@@ -1,0 +1,50 @@
+class Solution {
+    func letterCombinations(_ digits: String) -> [String] {
+        var res = [String]()       
+        let numPads = _init()
+        let chars = [Character](digits.characters)
+        guard chars.count > 0 else {
+            return res
+        }
+        //start the dfs approach
+        _dfs(res: &res, numPads: numPads, chars: chars, temp: "" , index: 0)
+        
+        return res
+    }
+    
+    private func _dfs( res: inout [String], numPads: [String], chars: [Character], temp: String, index: Int){
+        //base case: if reach input maximum digits, return the temp string
+        if index == chars.count{
+            res.append(temp)
+            return
+        }
+        
+        var temp = temp
+        
+        //get the letters for a digit
+        let currentChars = [Character](numPads[Int(String(chars[index]))!].characters)
+        
+        
+        //dfs method
+        for i in 0 ..< currentChars.count {
+            _dfs(res: &res, numPads: numPads, chars: chars, temp: temp + String(currentChars[i]), index: index + 1)
+        }      
+    }
+    
+    private func _init() -> [String] {
+        var res = [String]()
+        
+        res.append("")
+        res.append("")
+        res.append("abc")
+        res.append("def")
+        res.append("ghi")
+        res.append("jkl")
+        res.append("mno")
+        res.append("pqrs")
+        res.append("tuv")
+        res.append("wxyz")
+        
+        return res
+    }
+}
