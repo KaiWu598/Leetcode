@@ -1,0 +1,18 @@
+class Solution {
+    func isValid(_ s: String) -> Bool {
+        var stack = [Character]()
+        var dict: Dictionary<Character, Character>  = [")" : "(", "}":"{", "]":"["]
+        for c in s.characters {
+        //if c is the front part of the brackets, append to stack
+            if c == "(" || c == "[" || c == "{"{
+                stack.append(c)
+                //if c is the second part of the bracket, remove the matching bracket componenet
+            } else if (stack.count != 0 && stack.last == dict[c]) {
+                stack.removeLast()
+            } else{
+                return false
+            }
+        }
+        return stack.isEmpty
+    }
+}
