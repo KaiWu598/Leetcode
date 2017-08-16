@@ -1,0 +1,18 @@
+class Solution {
+    func removeDuplicates(_ nums: inout [Int]) -> Int {
+        if nums.count <= 1{
+            return nums.count
+        }
+        
+        //newLength is pointer to keep track of the non-duplicate elements
+        var newLength = 1
+        for i in 1 ..< nums.count {
+            if nums[i] != nums[i - 1]{
+                nums[newLength] = nums[i]
+                newLength += 1
+            }
+        }
+        
+        return newLength
+    }
+}
