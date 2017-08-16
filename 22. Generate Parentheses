@@ -1,0 +1,23 @@
+class Solution {
+    func generateParenthesis(_ n: Int) -> [String] {
+        var arr = [String]()
+        helper (arr:&arr, str: "", left: n, right: 0 )
+        return arr
+    }
+    
+    func helper(arr: inout[String], str: String, left: Int, right: Int){
+    //base case
+        if left == 0 && right == 0 {
+            arr.append(str)
+        }
+        
+        //if right has something, close with ) bracket and decrement right by 1
+        if right > 0 {
+            helper (arr: &arr, str: str + ")" , left: left, right: right - 1)
+        }
+        //if left has something, open with ( bracket and increment right by 1 to close the bracket later
+        if left > 0 {
+            helper (arr: &arr, str: str + "(", left: left - 1, right: right + 1)
+        }
+    }
+}
