@@ -1,0 +1,38 @@
+class Solution {
+    func nextPermutation(_ nums: inout [Int]) {
+        var i = nums.count - 1
+        //from right to left, find the number that is just small than the previous one, eg.   2 5 4 3, 2 is the number that we want to find
+        while i >= 1 && nums[i] <= nums[i-1] {
+            i -= 1
+        }
+        i -= 1
+        if i >= 0 {
+        
+        //find the number that is just larger than the number we found above, for example, 2 5 4 3, 3 is the number
+        var j = nums.count - 1
+        while j >= 0 && nums[j] <= nums[i] {
+            j -= 1
+        }
+        //swap the two numbers , now it becomes 3 5 4 2
+        swap (arr: &nums, i: i, j: j)
+        }
+        //reverse the numbers after 3, so it becomes 3 2 4 5, which is the next permutation
+        reverse(arr: &nums, start: i + 1, end: nums.count - 1)
+    }
+    
+    func swap(arr: inout [Int], i: Int , j: Int){
+        let tmp = arr[i]
+        arr[i] = arr[j]
+        arr[j] = tmp
+    }
+    
+    func reverse(arr: inout [Int], start: Int, end: Int){
+        var i = start
+        var j = end
+        while i < j {
+            swap(arr: &arr, i: i, j: j)
+            i += 1
+            j -= 1
+        }
+    }
+}
