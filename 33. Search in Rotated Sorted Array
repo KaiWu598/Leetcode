@@ -1,0 +1,36 @@
+class Solution {
+    func search(_ nums: [Int], _ target: Int) -> Int {
+        var start = 0
+        var end = nums.count - 1
+        var mid = Int()
+        
+        while start <= end {
+            mid = (start + end) / 2
+            
+            if nums[mid] == target {
+                return mid
+            }
+            
+            //if the first half is sorted
+            if nums[start] <= nums[mid]{
+            //if the target is at the first half of the array
+                if nums[start] <= target && target < nums[mid] {
+                    end = mid - 1
+                } else {
+                    start = mid + 1
+                }
+            }
+            //if the second half is sorted
+            else {
+              //if the target element is in the second half of the array
+                if nums[mid] < target && target <= nums[end]{
+                    start = mid + 1
+                } else {
+                    end = mid - 1
+                }
+            }
+        }
+        
+        return -1
+    }
+}
