@@ -1,0 +1,45 @@
+class Solution {
+    func searchRange(_ nums: [Int], _ target: Int) -> [Int] {
+        var res = [Int](repeating: -1, count: 2)
+        if nums.count < 1 {
+            return res
+        }
+        var i = 0
+        var j = nums.count - 1
+        
+        
+        while i < j {
+            let mid:Int = (i + j) / 2
+            //check if target is on the right hand side
+            if nums[mid] < target {
+                i = mid + 1
+            } else { //target is on the left hand side OR mid
+                j = mid
+            }
+        }
+        
+        //eventually the search range gets to size 1 where i = j, then check if the target is in here
+        if nums[i] != target {
+            return res
+        } else {
+            res[0] = i
+        }
+        
+        j = nums.count - 1  //no need to reset i
+        
+        while i < j {
+        //trick to make sure the search range does not get stuck
+            let mid: Int = (i + j + 1)/2 
+            // if the target is on the left hand side
+            if nums[mid] > target {
+                j = mid - 1
+            } else { //else the target is on the right hand side or mid
+                i = mid
+            }
+        }
+        
+        res[1] = i
+        
+        return res
+    }
+}
