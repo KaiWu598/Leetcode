@@ -1,0 +1,24 @@
+class Solution {
+    func searchInsert(_ nums: [Int], _ target: Int) -> Int {
+        if nums.count < 1 {
+            return 0
+        }
+        
+        var i = 0
+        var j = nums.count - 1
+        
+        while i <= j {
+        //prevent overflow...
+           let mid = (j - i) / 2 + i
+            if nums[mid] == target {
+                return mid
+            } else if nums[mid] < target {
+                i = mid + 1
+            } else {
+                j = mid - 1
+            }          
+        }
+        
+        return i
+    }
+}
