@@ -1,0 +1,41 @@
+class Solution {
+    func isValidSudoku(_ board: [[Character]]) -> Bool {
+        for i in 0 ..< board.count {
+            var col = Dictionary<Character,String>()
+            var row = Dictionary<Character,String>()
+            var cube = Dictionary<Character,String>()
+            for j in 0 ..< board.count{
+            //checking horizontally one element by one element
+                if board[i][j] != "." {
+                    if row[board[i][j]] != nil {
+                        return false
+                    } else {
+                        row[board[i][j]] = "true"
+                    }
+                }
+                //checking vertically one element by one element
+                if board[j][i] != "." {
+                    if col[board[j][i]] != nil {
+                        return false
+                    } else {
+                         col[board[j][i]] = "true"
+                     }
+                }
+                
+                let rowIndex = 3 * (i / 3) //Which row the cube starts
+                let colIndex = 3 * (i % 3) //Which column the cube starts
+                //j /3 and j % 3 are to traverse the row and columns for the cube
+                if board[rowIndex + j / 3][colIndex + j % 3] != "." {
+                    if cube[board[rowIndex + j / 3][colIndex + j % 3]] != nil {
+                        return false
+                    } else {
+                        cube[board[rowIndex + j / 3][colIndex + j % 3]] = "true"
+                    }
+                }
+                
+            }
+        }
+        
+        return true
+    }
+}
