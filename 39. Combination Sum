@@ -1,0 +1,23 @@
+class Solution {
+    func combinationSum(_ candidates: [Int], _ target: Int) -> [[Int]] {
+        var res = [[Int]]()
+        var path = [Int]()
+        var candidates = candidates.sorted(by:{$0<$1})
+        helper(candidates: candidates, target: target, index: 0, path: &path, res: &res)
+        return res
+    }
+    
+    private func helper(candidates: [Int], target: Int, index: Int, path: inout [Int], res: inout [[Int]]){
+        if target < 0 {
+            return
+        } else if target == 0 {
+            res.append(path)
+        } else {
+            for i in index ..< candidates.count {
+                path.append(candidates[i])
+                helper(candidates: candidates, target: target - candidates[i], index: i, path: &path, res: &res)
+                path.removeLast()
+            }
+        }
+    }
+}
