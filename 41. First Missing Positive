@@ -1,0 +1,20 @@
+class Solution {
+    func firstMissingPositive(_ nums: [Int]) -> Int {
+        var num = nums
+        for i in 0 ..< num.count {
+        //swap element into their position, eg. swap int 9 into position 8 (index = 8), KEEP swapping
+            while num[i] > 0 && num[i] <= num.count && num[num[i] - 1] != num[i]{
+                //num.swapAt(i, num[i] - 1)
+                swap(&num[i], &num[num[i] - 1])
+            }
+        }
+        
+        for i in 0 ..< num.count{
+            if num[i] != i + 1 {
+                return i + 1
+            }
+        }
+        
+        return num.count + 1
+    }
+}
