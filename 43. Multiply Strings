@@ -5,15 +5,19 @@ class Solution {
         var p2 = Int()
         var mul = Int()
         var sum = Int()
+        //turn characters into array
         var num1Array = Array(num1.characters)
         var num2Array = Array(num2.characters)
+        //iterate in reversed order
         for i in (0 ..< num1.characters.count).reversed(){
             for j in (0 ..< num2.characters.count).reversed(){
                 p1 = i + j
                 p2 = i + j + 1
                 mul = Int(String(num1Array[i]))! * Int(String(num2Array[j]))!
                 sum = mul + pos[p2]
+                //save the first digit
                 pos[p1] += sum / 10
+                //get the last digit
                 pos[p2] = sum % 10
                 
             }              
@@ -22,6 +26,7 @@ class Solution {
         while pos.count != 0 && pos[0] == 0 {
             pos.removeFirst()
         }
+        //turn Int array into string array
         let stringArray = pos.flatMap { String($0)}
         if stringArray.count > 0 {
             return stringArray.joined(separator: "")
