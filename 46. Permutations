@@ -1,0 +1,29 @@
+class Solution {
+    func permute(_ nums: [Int]) -> [[Int]] {
+        var result = [[Int]]()
+        var num = nums
+        helper(result: &result, nums: &num, begin: 0)
+        return result
+    }
+    
+    func helper(result: inout [[Int]], nums: inout [Int], begin: Int){
+        
+        for i in begin ..< nums.count {
+        
+            if begin >= nums.count - 1{
+                result.append(nums)
+            }
+
+            swapInt(array: &nums, i: i, j: begin)
+            helper(result: &result, nums: &nums, begin: begin + 1)
+            swapInt(array: &nums, i: i, j: begin)
+        }
+        
+    }
+    
+    func swapInt(array: inout [Int], i: Int, j:Int) {
+        let tmp = array[i]
+        array[i] = array[j]
+        array[j] = tmp
+    }
+}
