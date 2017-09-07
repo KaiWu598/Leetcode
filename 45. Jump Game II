@@ -1,0 +1,33 @@
+class Solution {
+    func jump(_ nums: [Int]) -> Int {
+        var currentRange = 0
+        var previousRange = 0
+        var steps = 0
+        
+        if nums.count == 0 || nums.count == 1{
+            return 0
+        }
+        
+        for i in 0 ..< nums.count {
+
+            //if the i element is outside of the previous range, meaning it is one step outside of the range that we can reach
+            if i > previousRange {
+            //add one more step
+                steps += 1
+                //if we are not going anywhere, if our new current range is still not greater than our previousRange, meaning that we are stuck, we cannot reach to the end
+                if previousRange == currentRange{
+                    return -1
+                }
+                previousRange = currentRange
+            } 
+            
+            currentRange = max(currentRange, i + nums[i])
+            //if we can reach to the end within the currentRange, we return the steps
+            if currentRange >= nums.count - 1 {
+                return steps + 1
+            }
+        }
+        
+        return steps
+    }
+}
