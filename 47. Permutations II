@@ -18,6 +18,8 @@ class Solution {
             
             if used[i] {continue}
             
+            //skip loop if the previous same number is unused, because we already obtain a permutation before
+            //if no !, the algorithm will generate the permutation at the last same element, skip all the previous same element
             if i > 0  && nums[i] == nums[i - 1] && !used[i - 1]{
                 continue
             }
