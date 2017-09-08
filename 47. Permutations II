@@ -1,0 +1,39 @@
+class Solution {
+    func permuteUnique(_ nums: [Int]) -> [[Int]] {
+        var result = [[Int]]()
+        var path = [Int]()
+        var used = [Bool](repeating: false, count: nums.count)
+        var num = nums.sorted(by:{$0<$1})
+        helper(result: &result, nums: &num, path: &path, used: &used)
+        return result
+    }
+    
+    func helper(result: inout [[Int]], nums: inout [Int], path: inout [Int], used: inout [Bool]){
+        
+        for i in 0 ..< nums.count {
+            if path.count == nums.count {
+                result.append(Array(path))
+                return
+            }
+            
+            if used[i] {continue}
+            
+            if i > 0  && nums[i] == nums[i - 1] && !used[i - 1]{
+                continue
+            }
+            
+            used[i] = true
+            path.append(nums[i])
+            helper(result: &result, nums: &nums, path: &path, used: &used)
+            path.removeLast()
+            used[i] = false
+        }
+        
+    }
+    
+    func swapInt(array: inout [Int], i: Int, j:Int) {
+        let tmp = array[i]
+        array[i] = array[j]
+        array[j] = tmp
+    }
+}
