@@ -1,0 +1,27 @@
+class Solution {
+    func groupAnagrams(_ strs: [String]) -> [[String]] {
+        var result = [[String]]()
+        var dict = [String: [String]]()
+        
+        for i in 0 ..< strs.count {
+            let ana = getFirstAna(str: strs[i])
+            if dict[ana] != nil {
+                dict[ana]!.append(strs[i])
+            } else {
+                dict[ana] = [strs[i]]
+            }
+        }
+        
+        for (key, values) in dict {
+            result.append(values)
+        }
+        return result
+    }
+    
+    func getFirstAna(str: String) -> String{
+        var chars = Array(str.characters)    
+        chars = chars.sorted(by: {$0<$1})
+        return String(chars)
+    
+    }
+}
