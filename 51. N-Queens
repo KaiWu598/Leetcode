@@ -1,0 +1,64 @@
+class Solution {
+    func solveNQueens(_ n: Int) -> [[String]] {
+        var row = [Character](repeating: ".", count: n)
+        var res = [[String]]()
+        var matrix = [[Character]](repeating: row, count: n)
+        helper(res: &res, matrix: &matrix, n: 0)
+        return res
+    }
+    
+    func helper(res: inout [[String]], matrix: inout [[Character]], n: Int){
+        if n == matrix.count {
+            var solution = matrix
+            var sol = [String]()
+            for e in solution {
+                sol.append(String(e))
+            }
+            res.append(sol)
+            return
+        }
+        
+        for j in 0 ..< matrix.count {
+            if isValid(matrix: matrix, i: n, j: j){
+                matrix[n][j] = "Q"
+                helper(res: &res, matrix: &matrix, n: n + 1)
+                matrix[n][j] = "."
+            }
+        }
+        
+    }
+    
+    func isValid(matrix: [[Character]], i: Int, j: Int)-> Bool{
+        var row = i
+        while row >= 0 {
+            if matrix[row][j] == "Q" {
+                return false
+            }
+            row -= 1
+        }
+        
+        var leftRow = i - 1
+        var leftCol = j - 1
+        
+        while leftRow >= 0 && leftCol >= 0 {
+            if matrix[leftRow][leftCol] == "Q" {
+                return false
+            }
+            leftRow -= 1
+            leftCol -= 1
+        }
+        
+        var rightRow = i - 1
+        var rightCol = j + 1
+        
+        while rightRow >= 0 && rightCol < matrix.count {
+            if matrix[rightRow][rightCol] == "Q" {
+                return false
+            }
+            rightRow -= 1
+            rightCol += 1
+        }
+        
+        return true
+    }
+}
