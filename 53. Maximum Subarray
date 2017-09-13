@@ -1,0 +1,13 @@
+class Solution {
+    func maxSubArray(_ nums: [Int]) -> Int {
+        var maxR = nums[0]
+        var sum = nums[0] //keeping track of the previous's element's sum
+        
+        for i in 1 ..< nums.count {
+            sum = nums[i] + (sum > 0 ? sum : 0 )
+            maxR = max(maxR,sum)
+        }
+        
+        return maxR
+    }
+}
