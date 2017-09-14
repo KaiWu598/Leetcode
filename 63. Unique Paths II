@@ -1,0 +1,50 @@
+class Solution {
+    func uniquePathsWithObstacles(_ obstacleGrid: [[Int]]) -> Int {
+        let width = obstacleGrid[0].count
+        var dp = [Int](repeating: 0, count: width)
+        dp[0] = 1
+        for row in obstacleGrid{
+            for j in 0 ..< width{
+                if row[j] == 1 {
+                    dp[j] = 0
+                } else if j > 0 {
+                    dp[j] += dp[j - 1]
+                }
+            }
+        }
+        
+        return dp[width - 1]
+    }
+}
+
+
+class Solution {
+    func uniquePathsWithObstacles(_ obstacleGrid: [[Int]]) -> Int {
+        if obstacleGrid[obstacleGrid.count - 1][obstacleGrid[0].count - 1] == 1 {
+            return 0
+        }
+        var cur = [Int]()
+        cur.append((obstacleGrid[0][0] == 1 ? 0 : 1))
+        for x in 1 ..< obstacleGrid[0].count {
+            cur.append((obstacleGrid[0][x] != 1 && cur[x-1] != 0 ? 1 : 0))      
+        }
+        
+        print (cur)
+        
+        for i in 1 ..< obstacleGrid.count{
+            if obstacleGrid[i][0] == 1 {
+                cur[0] = 0
+            }  
+            for j in 1 ..< obstacleGrid[0].count{
+                if obstacleGrid[i][j] == 1 {
+                    cur[j] = 0
+                } else {
+                    cur[j] = cur[j - 1] + cur[j]
+                }
+            }
+        }
+        
+      //  return obstacleGrid[obstacleGrid.count - 1][obstacleGrid[0].count - 1]
+        return cur[obstacleGrid[0].count - 1]
+    }
+}
