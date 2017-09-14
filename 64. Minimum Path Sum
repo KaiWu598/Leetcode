@@ -1,0 +1,26 @@
+class Solution {
+    func minPathSum(_ grid: [[Int]]) -> Int {
+        if grid.count == 0 || grid[0].count == 0 {return 0}
+        let width = grid[0].count
+        var dp = [Int](repeating: 0, count: width)
+      //  dp[0] = grid[0][0]
+        
+        for i in 0 ..< grid.count {
+            for j in 0 ..< width{
+                if j == 0 {
+                    dp[j] = grid[i][j] + dp[j]
+                } else if i == 0 {
+                    if j == 0 {
+                        dp[0] = grid[0][0]
+                    } else {
+                        dp[j] = grid[0][j] + dp[j-1]
+                    }
+                } else {
+                    dp[j] = grid[i][j] + min(dp[j-1], dp[j])
+                }
+            }
+        }
+        
+        return dp[width - 1]
+    }
+}
