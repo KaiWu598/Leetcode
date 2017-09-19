@@ -1,0 +1,33 @@
+class Solution {
+    func minDistance(_ word1: String, _ word2: String) -> Int {
+        let wordA = [Character](word1.characters)
+        let wordB = [Character](word2.characters)
+        let lenA = wordA.count
+        let lenB = wordB.count
+        
+        var cur = [Int](repeating: 0, count: lenA + 1)
+        
+        for i in 1 ..< lenA + 1{
+            cur[i] = i
+        }
+        
+        for i in 1 ..< lenB + 1{
+            var pre = cur[0] //pre is word[i - 1][j - 1]
+            cur[0] = i 
+            
+            for j in 1 ..< lenA + 1 {
+                let temp = cur[j]
+                if wordB[i - 1] == wordA[j - 1] {
+                    cur[j] = pre
+                } else {                   
+                    cur[j] = min(pre + 1, min(cur[j - 1] + 1, cur[j] + 1))
+                }
+                
+                pre = temp
+            }
+            
+        }
+        
+        return cur[lenA]
+    }
+}
