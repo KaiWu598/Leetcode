@@ -1,0 +1,22 @@
+class Solution {
+    func maxProfit(_ prices: [Int]) -> Int {
+        if prices.count == 0 {
+            return 0
+        }
+        
+        var maxProfit1 = 0
+        var maxProfit2 = 0
+        var lowBuy1 = Int(UInt16.max)
+        var lowBuy2 = Int(UInt16.max)
+        
+        for i in 0 ..< prices.count {
+            maxProfit2 = max(maxProfit2, prices[i] - lowBuy2)
+            lowBuy2 = min(lowBuy2, prices[i] - maxProfit1)
+            maxProfit1 = max(maxProfit1, prices[i] - lowBuy1)
+            lowBuy1 = min(lowBuy1, prices[i])
+            
+        } 
+        
+        return (maxProfit2)
+    }
+}
