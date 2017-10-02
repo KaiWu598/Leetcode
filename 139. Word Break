@@ -1,0 +1,45 @@
+class Solution {
+    func wordBreak(_ s: String, _ wordDict: [String]) -> Bool {
+        var wordDictionary = [String:String]()
+        var f = [Bool](repeating: false, count: s.characters.count + 1)
+        f[0] = true
+        for e in wordDict {
+            wordDictionary[e] = "true"
+        }
+        
+        for i in 1 ... s.characters.count {
+            for j in 0 ..< i{
+                //if previous is true and dictionary contains this word, it means previous + this word is also true
+                if (f[j] && wordDictionary[s.substring(with: j ..< i)] != nil) {
+                    f[i] = true
+                    break
+                } 
+             }
+            }
+        return f[s.characters.count]
+        }
+
+        
+}
+
+extension String {
+    func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
+
+    func substring(from: Int) -> String {
+        let fromIndex = index(from: from)
+        return substring(from: fromIndex)
+    }
+
+    func substring(to: Int) -> String {
+        let toIndex = index(from: to)
+        return substring(to: toIndex)
+    }
+
+    func substring(with r: Range<Int>) -> String {
+        let startIndex = index(from: r.lowerBound)
+        let endIndex = index(from: r.upperBound)
+        return substring(with: startIndex..<endIndex)
+    }
+}
