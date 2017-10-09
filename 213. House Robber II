@@ -1,0 +1,22 @@
+class Solution {
+    func rob(_ nums: [Int]) -> Int {
+        if nums.count == 0 {return 0}
+        if nums.count == 1 {return nums[0]}
+        return max(robHelper(nums, low: 0, high: nums.count - 1), robHelper(nums, low: 1, high: nums.count))
+    }
+    
+    func robHelper(_ nums: [Int], low: Int, high: Int) -> Int {
+    var a = 0
+    var b = 0
+
+    for i in low ..< high {
+        if i%2 == 0 {
+            a = max(nums[i] + a, b)
+        } else {
+            b = max(nums[i] + b , a)
+        }
+    }
+    
+    return max(a,b)
+}
+}
