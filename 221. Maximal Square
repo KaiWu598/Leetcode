@@ -1,0 +1,33 @@
+class Solution {
+    func maximalSquare(_ matrix: [[Character]]) -> Int {
+        var nr = matrix.count
+        if nr == 0 {
+            return 0
+        }
+        
+        var nc = matrix[0].count
+        if nc == 0 {
+            return 0 
+        }
+        
+        var dp = [Int](repeating: 0, count: nc + 1)
+        var topLeft = 0
+        var maxSize = 0
+        
+        for i in 1 ... nr {
+            for j in 1 ... nc{
+                let temp = dp[j]
+                
+                if matrix[i - 1][j - 1] == "0" {
+                    dp[j] = 0
+                } else {
+                    dp[j] = min(min(dp[j], dp[j-1]), topLeft) + 1
+                    maxSize = max(maxSize, dp[j])
+                }
+                topLeft = temp
+            }
+        }
+        
+        return maxSize * maxSize
+    }
+}
