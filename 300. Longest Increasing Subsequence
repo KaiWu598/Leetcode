@@ -1,0 +1,28 @@
+class Solution {
+    func lengthOfLIS(_ nums: [Int]) -> Int {
+        var tails = [Int](repeating: 0, count: nums.count) //storing the smallest end number of all possible increasing sequence at length i + 1
+        var size = 0
+        for e in nums{
+            var i = 0
+            var j = size
+            //binary search to find the index to update the element
+            while i != j {
+                let m = i + (j - i)/2
+                if tails[m] < e {
+                    i = m + 1
+                } else {
+                    j = m
+                }
+            }
+            tails[i] = e
+            //if cannot find index, meaning that the element is larger than every number in the current tails array, increase the size because
+            //we found a bigger number
+            if i == size{
+                size += 1
+            }
+        }
+        
+        return size
+        
+    }
+}
