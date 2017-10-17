@@ -1,0 +1,12 @@
+class Solution {
+    func countBits(_ num: Int) -> [Int] {
+        if num == 0 { return [0]}
+        var answer = [Int](repeating: 0, count: num + 1)
+        for i in 1 ... num {
+          //for example, 8 = 1000, 8 >> 1 = 4 = 100, the removed end digit is 0, i & 1 to check if the end digit is one or zero
+          //similar: f[i] = f[i / 2] + i % 2.
+            answer[i] = answer[(i >> 1)] + (i & 1) 
+        }
+        return answer
+    }
+}
