@@ -1,0 +1,24 @@
+class Solution {
+    func coinChange(_ coins: [Int], _ amount: Int) -> Int {
+        if amount == 0 {
+            return 0
+        }
+        
+        guard amount > 0 else {
+            return -1
+        }
+        
+        var leastTimes = [Int](repeating: amount + 1, count: amount + 1)
+        leastTimes[0] = 0
+        for i in 1 ... amount {
+            for coin in coins {
+                if coin > i {
+                    continue
+                }
+                leastTimes[i] = min(leastTimes[i], leastTimes[i - coin] + 1)            
+            }
+        }
+        
+        return leastTimes[amount] <= amount ? leastTimes[amount] : -1
+    }
+}
