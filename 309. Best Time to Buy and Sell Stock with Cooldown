@@ -1,0 +1,19 @@
+class Solution {
+    func maxProfit(_ prices: [Int]) -> Int {
+        var prevBuy = 0
+        var buy = Int.min
+        var prevSell = 0
+        var sell = 0
+        
+        for price in prices{
+            prevBuy = buy
+            buy = max(prevSell - price, buy)
+            prevSell = sell
+            sell = max(prevBuy + price, sell )
+        }
+        
+        return sell
+    }
+}
+
+https://discuss.leetcode.com/topic/30421/share-my-thinking-process/2?page=1
