@@ -1,0 +1,44 @@
+class Solution {
+    func searchMatrix(_ matrix: [[Int]], _ target: Int) -> Bool {
+        if matrix.count == 0 || matrix[0].count == 0{
+            return false
+        }
+        
+        var left = 0
+        var right = matrix.count - 1
+        var rowLen = matrix[0].count
+        
+        while left < right {
+            let mid = left + (right - left) / 2
+            if matrix[mid][0] == target {
+                return true
+            } else if matrix[mid][0] < target {
+                left = mid + 1
+            } else {
+                right = mid
+            }
+        }
+        
+        if matrix[left][0] > target {
+            if left > 0 {
+            //can use binary search here
+                for i in 0 ..< rowLen {
+                    if matrix[left - 1][i] == target {
+                        return true
+                    }
+                }
+            } else {
+                return false
+            }
+        } else {
+        //can use binary search here
+            for i in 0 ..< rowLen {
+                if matrix[left][i] == target{
+                    return true
+                }
+            }    
+        }    
+        
+        return false
+    }
+}
