@@ -1,0 +1,28 @@
+class Solution {
+    func sortColors(_ nums: inout [Int]) {
+        if nums.count < 2 {
+            return 
+        }
+        var left = 0
+        var right = nums.count - 1
+        var i = 0
+        while i <= right {
+            if nums[i] == 0 {
+                swapTwo(a: i, b: left, array: &nums)
+                left += 1
+                i += 1
+            } else if nums[i] == 2 {
+                swapTwo(a: i, b: right, array: &nums)
+                right -= 1
+            } else {
+                i += 1
+            }
+        }
+    }
+    
+    func swapTwo(a: Int, b: Int, array: inout [Int]){
+        let temp = array[a]
+        array[a] = array[b]
+        array[b] = temp
+    }
+}
