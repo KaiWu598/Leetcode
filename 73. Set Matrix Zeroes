@@ -1,0 +1,42 @@
+class Solution {
+    func setZeroes(_ matrix: inout [[Int]]) {
+        var fc = false
+        var fr = false
+        
+        for i in 0 ..< matrix.count{
+            for j in 0 ..< matrix[0].count {
+                if matrix[i][j] == 0 {
+                    matrix[0][j] = 0 
+                    matrix[i][0] = 0
+                    
+                    if i == 0 {
+                        fr = true
+                    }
+                    if j == 0 {
+                        fc = true
+                    }
+                }
+            }
+        }
+        
+        for i in 1 ..< matrix.count {
+            for j in 1 ..< matrix[0].count {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0
+                }
+            }
+        }
+
+        if (fr){
+            for i in 0 ..< matrix[0].count {
+                matrix[0][i] = 0
+            }
+        }
+        
+        if (fc){
+            for i in 0 ..< matrix.count {
+                matrix[i][0] = 0
+            }
+        }
+    }
+}
