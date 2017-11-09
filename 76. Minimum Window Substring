@@ -1,0 +1,77 @@
+class Solution {
+    func minWindow(_ s: String, _ t: String) -> String {
+        var dict = [Character: Int]()
+        let charArray = [Character](t.characters)
+        let sArray = [Character](s.characters)
+        
+        for c in charArray {
+            if let val = dict[c] {
+                dict[c] = val + 1
+            } else {
+                dict[c] = 1 
+            }
+        }
+        
+        var start = 0 
+        var end = 0
+        var count = t.characters.count
+        var minStart = 0 
+        var minLen = Int.max
+        
+        while end < sArray.count {
+            if let value = dict[sArray[end]]{
+                if value > 0 {
+                    count -= 1
+                } 
+                dict[sArray[end]] = value - 1
+            } else {
+                dict[sArray[end]] = -1
+            }
+            end += 1
+            while (count == 0){
+                if (end - start) < minLen{
+                    minLen = end - start
+                    minStart = start
+                }
+                dict[sArray[start]]! += 1
+                if dict[sArray[start]]! > 0 {
+                    count += 1
+                }
+                start += 1
+            }
+        }
+        if minLen < Int.max{
+            return s.substring(with: minStart ..< minStart + minLen)
+        } else {
+            return ""
+        }
+    }
+}
+
+extension String {
+    func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
+
+    func substring(from: Int) -> String {
+        let fromIndex = index(from: from)
+        return substring(from: fromIndex)
+    }
+
+    func substring(to: Int) -> String {
+        let toIndex = index(from: to)
+        return substring(to: toIndex)
+    }
+
+    func substring(with r: Range<Int>) -> String {
+        let startIndex = index(from: r.lowerBound)
+        let endIndex = index(from: r.upperBound)
+        return substring(with: startIndex..<endIndex)
+    }
+    
+    //turn string into an array of characters
+    func randomAccessCharactersArray() -> [Character] {
+        return Array(self.characters)
+    }
+    
+}
