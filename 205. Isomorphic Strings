@@ -1,0 +1,23 @@
+class Solution {
+    func isIsomorphic(_ s: String, _ t: String) -> Bool {
+        var sChar = [Character](s.characters)
+        var tChar = [Character](t.characters)
+        var sDict = [Character: Character]()
+        var tDict = [Character: Character]()
+        
+        for i in 0 ..< sChar.count {
+            let sCurrent = sChar[i]
+            let tCurrent = tChar[i]
+            
+            if sDict[sCurrent] == nil && tDict[tCurrent] == nil {
+                sDict[sCurrent] = tCurrent
+                tDict[tCurrent] = sCurrent
+            } else if sDict[sCurrent] != tCurrent || tDict[tCurrent] !=  sCurrent{
+                return false
+            }
+            
+        }
+        
+        return true
+    }
+}
