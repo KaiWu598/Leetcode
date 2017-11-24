@@ -1,0 +1,37 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+    func isSymmetric(_ root: TreeNode?) -> Bool {
+        guard let node = root else {
+            return true
+        }
+
+
+        return helper(leftNode: node.left, rightNode:node.right)
+        
+    }
+    
+    func helper(leftNode: TreeNode?, rightNode: TreeNode?) -> Bool{
+        if leftNode == nil && rightNode == nil {
+            return true
+        }
+        
+        if leftNode == nil || rightNode == nil || leftNode!.val != rightNode!.val {
+            return false
+        }
+        
+        return helper(leftNode: leftNode!.left, rightNode: rightNode!.right) && helper(leftNode: leftNode!.right, rightNode: rightNode!.left)
+        
+    }
+}
