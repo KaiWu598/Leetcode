@@ -1,0 +1,41 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+    func maxDepth(_ root: TreeNode?) -> Int {
+        guard let node = root else {
+            return 0 
+        }
+        var max = 1
+        var level = 1
+        if node.left != nil {
+            helper(node:node.left, max: &max, level: level)
+        }
+        if node.right != nil {
+            helper(node: node.right, max: &max, level: level)
+        }
+        return max
+    }
+    
+    func helper(node: TreeNode?, max: inout Int, level: Int){
+        if node == nil {
+            if level > max {
+                max = level
+            }
+            return
+        }
+        helper(node:node!.left, max: &max, level: level + 1)
+        helper(node: node!.right, max: &max, level: level + 1)
+        
+    }
+}
