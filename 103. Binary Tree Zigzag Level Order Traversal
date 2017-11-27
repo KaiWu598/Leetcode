@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+    func zigzagLevelOrder(_ root: TreeNode?) -> [[Int]] {
+        var res = [[Int]]()
+        var stack = [TreeNode]()
+        guard let node = root else {
+            return res
+        }
+        stack.append(node)
+        var leftToRight = true
+        while stack.count > 0 {
+            let size = stack.count
+            var level = [Int]()
+            
+            for _ in 0 ..< size {
+                let element = stack[0]
+                stack.remove(at:0)
+                if leftToRight == true {
+                    level.append(element.val)
+                } else {
+                    level.insert(element.val, at: 0)
+                }
+                if element.left != nil {
+                    stack.append(element.left!)
+                }
+                if element.right != nil {
+                    stack.append(element.right!)
+                }
+                         
+            }
+            leftToRight = !leftToRight
+            res.append(level)
+            
+        }
+        
+        return res
+    }
+}
