@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+    func buildTree(_ inorder: [Int], _ postorder: [Int]) -> TreeNode? {
+        guard inorder.count > 0 && postorder.count > 0 && inorder.count == postorder.count else{
+            return nil
+        } 
+        
+        var dict = [Int:Int]()
+        for i in 0 ..< inorder.count {
+            dict[inorder[i]] = i
+        }
+        
+        return helper(inorder, 0, inorder.count - 1, postorder, 0 , postorder.count - 1, dict)    
+    }
+    
+    private func helper(_ inorder: [Int], _ inLow: Int, _ inHi: Int, _ postorder: [Int], _ postLow: Int, _ postHi: Int, _ dict: [Int:Int] )-> TreeNode? {
+        
+        guard inLow <= inHi && postLow <= postHi else {
+            return nil
+        }
+        
+        let root = TreeNode(postorder[postHi])
+        let index = dict[postorder[postHi]]!
+        let leftLength = index - inLow
+        
+        root.left = helper(inorder, inLow, index - 1, postorder, postLow, postLow + leftLength - 1, dict)
+        root.right = helper(inorder, index + 1, inHi, postorder, postLow + leftLength, postHi - 1, dict)
+        
+        return root
+        
+    }
+}
