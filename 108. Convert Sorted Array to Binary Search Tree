@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public var val: Int
+ *     public var left: TreeNode?
+ *     public var right: TreeNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.left = nil
+ *         self.right = nil
+ *     }
+ * }
+ */
+class Solution {
+    func sortedArrayToBST(_ nums: [Int]) -> TreeNode? {
+        guard nums.count > 0 else {
+            return nil
+        }
+
+        return helper(nums, 0, nums.count - 1)
+    }
+    
+    private func helper(_ nums: [Int], _ left: Int, _ right: Int) -> TreeNode? {
+        guard left <= right else {
+            return nil
+        }
+        
+        let mid = left + (right - left) / 2
+        let node = TreeNode(nums[mid])
+        node.left = helper(nums, left, mid - 1)
+        node.right = helper(nums, mid + 1, right)
+        return node
+        
+        
+    }
+}
