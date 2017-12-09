@@ -3,7 +3,7 @@ class Solution {
         var chars = s.randomAccessCharactersArray()
         var start: Int = 0
         var maxLength: Int = 0
-        var i = 0
+        var i = 0, j = 0, k = 0
         
         if chars.count < 1{
             return s
@@ -14,8 +14,8 @@ class Solution {
             guard chars.count - i > maxLength / 2 else{
                 break
             }
-            var j = i
-            var k = i
+            j = i
+            k = i
             
             //loop through all the same letters, for example baaaaaaaaaa......aaab
             while k < chars.count - 1 && chars[k+1] == chars[k]{
@@ -30,7 +30,7 @@ class Solution {
                 k += 1
             }
             
-            if the new palidrome has a greater length, change the maxLength and the starting position
+            //if the new palidrome has a greater length, change the maxLength and the starting position
             if maxLength < (k - j + 1){
                 maxLength = k - j + 1
                 start = j
@@ -66,9 +66,4 @@ extension String {
     func randomAccessCharactersArray() -> [Character] {
         return Array(self.characters)
     }
-    
-    let str = "Hello, playground"
-print(str.substring(from: 7))         // playground
-print(str.substring(to: 5))           // Hello
-print(str.substring(with: 7..<11))    // play
 }
