@@ -1,0 +1,15 @@
+class Solution {
+    func maxArea(_ height: [Int]) -> Int {
+        var res = 0
+        var i = 0, j = height.count - 1
+        var h = 0
+        while i < j {
+            h = min(height[i], height[j])
+            res = max(res, h * (j - i))
+            while height[i] <= h && i < j {i += 1}
+            while height[j] <= h && i < j {j -= 1}
+        }
+        
+        return res
+    }
+}
