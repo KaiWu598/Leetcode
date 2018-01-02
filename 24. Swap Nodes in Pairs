@@ -1,0 +1,46 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public var val: Int
+ *     public var next: ListNode?
+ *     public init(_ val: Int) {
+ *         self.val = val
+ *         self.next = nil
+ *     }
+ * }
+ */
+class Solution {
+    func swapPairs(_ head: ListNode?) -> ListNode? {
+        var dummy = ListNode(0)
+                
+        var node = head
+        var pre = ListNode(0)
+        
+        dummy.next = node != nil && node?.next != nil ? node?.next : node
+
+        
+        while node != nil && node?.next != nil {
+            let temp = node?.next
+            pre.next = temp
+            node?.next = node?.next?.next
+            temp?.next = node
+            pre = node!
+            node = node?.next   
+        }
+        
+        return dummy.next
+    }
+}
+
+
+
+public class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if ((head == null)||(head.next == null))
+            return head;
+        ListNode n = head.next;
+        head.next = swapPairs(head.next.next);
+        n.next = head;
+        return n;
+    }
+}
